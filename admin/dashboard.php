@@ -138,20 +138,28 @@ try {
             <div class="admin-nav-section">
                 <div class="admin-nav-label">Overview</div>
                 <a href="#" class="admin-nav-link active" onclick="showTab('overview', this)">
-                    <span class="icon">📊</span> Dashboard
+                    <span class="icon">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>
+                    </span> Dashboard
                 </a>
                 <a href="#" class="admin-nav-link" onclick="showTab('events-tab', this)">
-                    <span class="icon">📅</span> Events
+                    <span class="icon">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                    </span> Events
                 </a>
             </div>
 
             <div class="admin-nav-section">
                 <div class="admin-nav-label">Participants</div>
                 <a href="#" class="admin-nav-link" onclick="showTab('participants-tab', this)">
-                    <span class="icon">👥</span> All Participants
+                    <span class="icon">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </span> All Participants
                 </a>
                 <a href="#" class="admin-nav-link" onclick="showTab('regs-tab', this)">
-                    <span class="icon">🎟</span> Registrations
+                    <span class="icon">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                    </span> Registrations
                 </a>
             </div>
 
@@ -159,7 +167,9 @@ try {
             <div class="admin-nav-section">
                 <div class="admin-nav-label">Security</div>
                 <a href="#" class="admin-nav-link" onclick="showTab('security-tab', this)">
-                    <span class="icon">🔒</span> Login Attempts
+                    <span class="icon">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                    </span> Login Attempts
                 </a>
             </div>
             <?php endif; ?>
@@ -167,7 +177,9 @@ try {
             <div class="admin-nav-section">
                 <div class="admin-nav-label">Site</div>
                 <a href="<?= SITE_URL ?>/" class="admin-nav-link" target="_blank">
-                    <span class="icon">🌐</span> View Website
+                    <span class="icon">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                    </span> View Website
                 </a>
             </div>
         </nav>
@@ -186,11 +198,6 @@ try {
         <div class="admin-topbar">
             <div class="admin-topbar-title" id="topbar-title">Dashboard Overview</div>
             <div class="admin-topbar-right">
-                <?php if (LAB_MODE): ?>
-                    <span class="badge badge-warn">⚠️ Lab Mode</span>
-                <?php else: ?>
-                    <span class="badge badge-success">🔒 Hardened</span>
-                <?php endif; ?>
                 <div class="admin-user-badge">
                     <div class="admin-user-avatar">A</div>
                     <span><?= htmlspecialchars($_SESSION['admin_user'] ?? 'admin') ?></span>
@@ -200,20 +207,6 @@ try {
 
         <div class="admin-content">
 
-            <!-- ── Lab mode banner ────────────────────────────────────────────── -->
-            <?php if (LAB_MODE): ?>
-            <div class="lab-banner">
-                ⚠️ <strong>Lab Mode Active:</strong>
-                Weak authentication is currently enabled. Change <code>LAB_MODE</code> to <code>false</code>
-                in <code>config/config.php</code> to switch to the hardened configuration.
-            </div>
-            <?php else: ?>
-            <div class="alert alert-success" style="margin-bottom: 24px; font-size: .87rem;">
-                🔒 <strong>Hardened Mode:</strong> Rate limiting and account lockout are active.
-                Failed login attempts are being recorded.
-            </div>
-            <?php endif; ?>
-
             <!-- ════════════════════════════════════════════════════════════════
                  TAB: OVERVIEW / DASHBOARD
                  ════════════════════════════════════════════════════════════════ -->
@@ -222,25 +215,33 @@ try {
                 <!-- Stats -->
                 <div class="dashboard-stats">
                     <div class="dash-stat-card">
-                        <div class="dash-stat-icon">👥</div>
+                        <div class="dash-stat-icon">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                        </div>
                         <div class="dash-stat-value"><?= $total_participants ?></div>
                         <div class="dash-stat-label">Registered Participants</div>
                         <div class="dash-stat-change">↑ Active registrations</div>
                     </div>
                     <div class="dash-stat-card">
-                        <div class="dash-stat-icon">📅</div>
+                        <div class="dash-stat-icon">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                        </div>
                         <div class="dash-stat-value"><?= $total_events ?></div>
                         <div class="dash-stat-label">Upcoming Events</div>
                         <div class="dash-stat-change">← This semester</div>
                     </div>
                     <div class="dash-stat-card">
-                        <div class="dash-stat-icon">🎟</div>
+                        <div class="dash-stat-icon">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                        </div>
                         <div class="dash-stat-value"><?= $total_regs ?></div>
                         <div class="dash-stat-label">Total Registrations</div>
                         <div class="dash-stat-change">↑ Across all events</div>
                     </div>
                     <div class="dash-stat-card">
-                        <div class="dash-stat-icon">✅</div>
+                        <div class="dash-stat-icon">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                        </div>
                         <div class="dash-stat-value"><?= count($recent_regs) ?></div>
                         <div class="dash-stat-label">Recent (Last 12)</div>
                         <div class="dash-stat-change">← Most recent</div>
@@ -304,7 +305,7 @@ try {
                             <div>
                                 <div class="event-list-title"><?= htmlspecialchars($ev['title']) ?></div>
                                 <div class="event-list-date">
-                                    📅 <?= date('d M Y', strtotime($ev['event_date'])) ?>
+                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 4px;"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><?= date('d M Y', strtotime($ev['event_date'])) ?>
                                     &nbsp;·&nbsp;
                                     <span class="badge badge-info"><?= $ev['reg_count'] ?> registered</span>
                                 </div>
@@ -450,7 +451,7 @@ try {
                     Admin Login Attempts
                 </h2>
                 <div class="alert alert-info" style="margin-bottom: 20px; font-size: .85rem;">
-                    🛡️ Hardened mode is active. All admin login attempts are being logged below.
+                    Security log: Admin authentication attempts are recorded below.
                     After <?= MAX_LOGIN_ATTEMPTS ?> failed attempts from the same IP, access is blocked for <?= LOCKOUT_DURATION ?> minutes.
                 </div>
                 <div class="dash-panel">
@@ -475,9 +476,9 @@ try {
                                         <td><?= htmlspecialchars($att['username'] ?? '—') ?></td>
                                         <td>
                                             <?php if ($att['success']): ?>
-                                                <span class="badge badge-success">✅ Success</span>
+                                                <span class="badge badge-success">Success</span>
                                             <?php else: ?>
-                                                <span class="badge" style="background:rgba(255,90,110,.12);color:var(--clr-danger);">❌ Failed</span>
+                                                <span class="badge" style="background:rgba(255,90,110,.12);color:var(--clr-danger);">Failed</span>
                                             <?php endif; ?>
                                         </td>
                                     </tr>

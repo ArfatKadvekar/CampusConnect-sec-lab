@@ -113,7 +113,14 @@ include __DIR__ . '/includes/header.php';
             <?php endif; ?>
 
             <div class="form-card-header">
-                <div class="form-card-icon">🎟</div>
+                <div class="form-card-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="8.5" cy="7" r="4"></circle>
+                        <line x1="20" y1="8" x2="20" y2="14"></line>
+                        <line x1="23" y1="11" x2="17" y2="11"></line>
+                    </svg>
+                </div>
                 <h2 class="form-card-title">Register for an Event</h2>
                 <p class="form-card-subtitle">All events are free to attend. A registration confirmation will be sent to your email.</p>
             </div>
@@ -198,7 +205,7 @@ include __DIR__ . '/includes/header.php';
                 <div class="divider"></div>
 
                 <button type="submit" class="btn btn-primary btn-lg form-submit" id="register-submit">
-                    Register →
+                    Register
                 </button>
             </form>
 

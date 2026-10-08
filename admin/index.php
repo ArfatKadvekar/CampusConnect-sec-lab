@@ -21,10 +21,6 @@ $error   = '';
 $warning = '';
 $locked  = false;
 
-// ── Lab-mode informational banner ─────────────────────────────────────────────
-// This is only shown to the instructor to confirm which mode is active.
-// It does NOT expose credentials.
-$lab_mode_active = LAB_MODE;
 
 // ── Handle login attempt ──────────────────────────────────────────────────────
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -72,22 +68,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <p class="admin-login-sub">Sign in to access the event management dashboard.</p>
         </div>
 
-        <!-- ── Instructor note (lab mode indicator — no credentials shown) ── -->
-        <?php if ($lab_mode_active): ?>
-        <div class="alert alert-warn" style="margin-bottom: 20px; font-size: .82rem;">
-            ⚠️ <strong>Lab Mode Active</strong> — Weak authentication is enabled for this demonstration.
-            Set <code>LAB_MODE = false</code> in <code>config/config.php</code> to enable hardened mode.
-        </div>
-        <?php else: ?>
-        <div class="alert alert-info" style="margin-bottom: 20px; font-size: .82rem;">
-            🔒 <strong>Hardened Mode Active</strong> — Rate limiting and account lockout are enabled.
-        </div>
-        <?php endif; ?>
-
         <!-- ── Flash messages ───────────────────────────────────────────────── -->
         <?php if ($error): ?>
             <div class="alert <?= $locked ? 'alert-warn' : 'alert-error' ?>">
-                <?= $locked ? '🔒' : '❌' ?> <?= htmlspecialchars($error) ?>
+                <?= htmlspecialchars($error) ?>
             </div>
         <?php endif; ?>
 
@@ -122,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         class="btn btn-primary form-submit"
                         id="admin-login-btn"
                         <?= $locked ? 'disabled' : '' ?>>
-                    <?= $locked ? '🔒 Account Locked' : 'Sign In →' ?>
+                    <?= $locked ? 'Account Locked' : 'Sign In' ?>
                 </button>
             </form>
         </div>

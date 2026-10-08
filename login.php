@@ -44,7 +44,12 @@ include __DIR__ . '/includes/header.php';
         <?php endif; ?>
 
         <div class="form-card-header">
-            <div class="form-card-icon">👤</div>
+            <div class="form-card-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </div>
             <h1 class="form-card-title">Welcome Back</h1>
             <p class="form-card-subtitle">Log in to access your registrations and event details.</p>
         </div>
@@ -74,7 +79,7 @@ include __DIR__ . '/includes/header.php';
             </div>
 
             <button type="submit" class="btn btn-primary btn-lg form-submit" id="login-submit">
-                Log In →
+                Log In
             </button>
         </form>
 

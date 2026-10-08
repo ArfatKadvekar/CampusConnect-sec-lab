@@ -20,7 +20,7 @@
         </div>
 
         <div class="footer-nav-group">
-            <h4>Navigate</h4>
+            <h4>Quick Links</h4>
             <ul>
                 <li><a href="<?= SITE_URL ?>/">Home</a></li>
                 <li><a href="<?= SITE_URL ?>/#events">Events</a></li>
@@ -33,7 +33,7 @@
             <h4>Account</h4>
             <ul>
                 <li><a href="<?= SITE_URL ?>/register.php">Register</a></li>
-                <li><a href="<?= SITE_URL ?>/login.php">Participant Login</a></li>
+                <li><a href="<?= SITE_URL ?>/login.php">Login</a></li>
             </ul>
         </div>
 
@@ -42,7 +42,6 @@
     <div class="footer-bottom">
         <div class="footer-bottom-inner">
             <span>&copy; <?= date('Y') ?> <?= SITE_NAME ?>. All rights reserved.</span>
-            <span class="footer-note">This is a fictional student organization for educational purposes only.</span>
         </div>
     </div>
 </footer>
