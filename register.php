@@ -81,18 +81,17 @@ include __DIR__ . '/includes/header.php';
 
 <!-- ── Page hero ──────────────────────────────────────────────────────────── -->
 <div class="page-hero">
-    <div class="section-tag">Join Us</div>
     <h1 class="page-hero-title">Event Registration</h1>
     <p class="page-hero-sub">Fill in your details to register for an upcoming CampusConnect event.</p>
 </div>
 
 <!-- ── Registration form ──────────────────────────────────────────────────── -->
-<div class="form-page" style="min-height: auto; padding: 60px 24px;">
+<div class="form-page">
     <div class="form-card form-card--wide">
 
         <?php if ($success): ?>
             <div class="alert alert-success" data-auto-dismiss="6000">
-                ✅ You have successfully registered! Check your email for event details.
+                You have successfully registered! Check your email for event details.
             </div>
             <div style="text-align: center; margin-top: 16px;">
                 <a href="<?= SITE_URL ?>/" class="btn btn-secondary">← Back to Home</a>
