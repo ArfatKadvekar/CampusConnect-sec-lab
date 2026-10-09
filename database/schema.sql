@@ -62,3 +62,45 @@ CREATE TABLE IF NOT EXISTS admin_login_attempts (
     attempted_at TIMESTAMP      DEFAULT CURRENT_TIMESTAMP,
     success     TINYINT(1)      DEFAULT 0
 ) ENGINE=InnoDB;
+
+-- ─────────────────────────────────────────────────────────────────────────────
+--  Demo accounts for Password Security Demonstration
+--  EDUCATIONAL USE ONLY — Disposable synthetic accounts
+-- ─────────────────────────────────────────────────────────────────────────────
+CREATE TABLE IF NOT EXISTS demo_accounts (
+    id                  INT UNSIGNED    AUTO_INCREMENT PRIMARY KEY,
+    account_code        VARCHAR(10)     NOT NULL UNIQUE,
+    username            VARCHAR(100)    NOT NULL UNIQUE,
+    display_name        VARCHAR(150)    NOT NULL,
+    category            VARCHAR(100)    NOT NULL,
+    password_length     INT UNSIGNED    NOT NULL,
+    is_predictable      TINYINT(1)      NOT NULL DEFAULT 1,
+    target_password     VARCHAR(255)    NOT NULL,
+    password_hash       VARCHAR(255)    NOT NULL,
+    scenario_mode       ENUM('insecure','protected') DEFAULT 'insecure',
+    is_locked           TINYINT(1)      DEFAULT 0,
+    failed_attempts     INT UNSIGNED    DEFAULT 0,
+    locked_until        TIMESTAMP       NULL DEFAULT NULL,
+    login_demonstrated  TINYINT(1)      DEFAULT 0,
+    mfa_enabled         TINYINT(1)      DEFAULT 0,
+    mfa_secret          VARCHAR(32)     DEFAULT 'DEMO-OTP-849201',
+    created_at          TIMESTAMP       DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
+
+-- ─────────────────────────────────────────────────────────────────────────────
+--  Demo login attempts log (isolated from admin/participant logs)
+-- ─────────────────────────────────────────────────────────────────────────────
+CREATE TABLE IF NOT EXISTS demo_login_attempts (
+    id                  INT UNSIGNED    AUTO_INCREMENT PRIMARY KEY,
+    demo_account_id     INT UNSIGNED    NULL,
+    username            VARCHAR(100)    NOT NULL,
+    ip_address          VARCHAR(45)     NOT NULL,
+    scenario_mode       ENUM('insecure','protected') NOT NULL,
+    attempted_password  VARCHAR(255)    NULL,
+    attempted_at        TIMESTAMP       DEFAULT CURRENT_TIMESTAMP,
+    success             TINYINT(1)      DEFAULT 0,
+    control_triggered   VARCHAR(100)    DEFAULT 'None',
+    response_time_ms    DECIMAL(8, 2)   DEFAULT 0.00,
+    FOREIGN KEY (demo_account_id) REFERENCES demo_accounts(id) ON DELETE CASCADE
+) ENGINE=InnoDB;
+

@@ -225,46 +225,73 @@ Discussion points:
 
 ---
 
-## Security Lessons
+---
 
-| #  | Lesson                                                                                  |
-|----|-----------------------------------------------------------------------------------------|
-| 1  | Administrative interfaces should not be publicly reachable without additional controls  |
-| 2  | Weak passwords are trivially bypassed by guessing or automated tools                    |
-| 3  | Rate limiting and account lockout are essential first-line defenses                     |
-| 4  | All authentication events should be logged for monitoring and incident response         |
-| 5  | Defence-in-depth: strong passwords + rate limiting + monitoring work best together      |
+## Multi-User Password Security Demonstration (`/lab-demo/`)
+
+A dedicated presentation dashboard designed for instructors to demonstrate password security concepts to first-year computer engineering students on a projector.
+
+### Key Learning Objectives
+
+1. **Why predictable passwords are vulnerable:** Weak, college-themed passwords (`campus2026`) appear at the front of targeted candidate lists.
+2. **Complexity ≠ Unpredictability:** Passwords with symbols and capitals (`Campus@2026`) follow common patterns that dictionary generators easily target.
+3. **Entropy & Randomness:** Sufficiently long, random strings (`rN7#kP9!wB2$xT5&`) and multi-word passphrases (`falcon-river-blue-matrix`) resist dictionary-based candidate searching.
+4. **Candidate Dataset Dynamics:** Candidate searches evaluate whether a target exists in the attacker's dataset—a "not found" result indicates the wordlist was exhausted, not that a password is universally unbreakable.
+5. **Defensive Authentication Controls:** How server-side bcrypt hashing, login rate limiting (max 5 attempts), 15-minute account lockouts, and Multi-Factor Authentication (MFA) mitigate guessing attacks.
 
 ---
 
-## Hardened Configuration Details
+### Demonstration Accounts Reference
 
-When `LAB_MODE = false`:
+All demo accounts are synthetic, disposable lab accounts isolated from production participants and administrators.
 
-- **Strong password** -- configured in `config/config.php`
-- **Rate limiting** -- 5 failed attempts per IP within 15 minutes triggers lockout
-- **Account lockout** -- login form is disabled for the locked IP for 15 minutes
-- **Attempt logging** -- every admin login attempt recorded in `admin_login_attempts`
-- **Session hardening** -- httponly, samesite=Lax cookie flags; session ID regenerated on login
+| Code | Fictional Username | Display Name | Category | Length | Pattern Characteristics | Dataset Status |
+|:---:|:---|:---|:---|:---:|:---|:---|
+| **A** | `demo_student_01` | Student Account A | Predictable | 10 chars | Weak campus word + year (`campus2026`) | **Found at #4,999** (19.99%) |
+| **B** | `demo_student_02` | Student Account B | Modified Pattern | 11 chars | Capital + Symbol + Year (`Campus@2026`) | **Found at #12,000** (48.00%) |
+| **C** | `demo_student_03` | Student Account C | Random String | 16 chars | High-entropy random alphanumeric + symbols | **Not in dataset** (0 / 25,001) |
+| **D** | `demo_student_04` | Student Account D | Passphrase | 24 chars | 4-word Diceware passphrase | **Not in dataset** (0 / 25,001) |
+
+*Bonus Benchmark:* Entry #25,000 (`V7q!2mL#9xR@4pZ`) is provided for full-dataset stress testing.
 
 ---
 
-## Fictional Data Reference
+### Candidate Wordlist Verification
 
-All participant names, email addresses, and events are entirely fictional.
+- **Location:** `data/campusconnect_demo_wordlist.txt`
+- **Total Valid Lines:** `25,001`
+- **Duplicate Entries:** `0`
+- **Blank Lines:** `0`
+- **Verified Target Positions:**
+  - `campus2026` at Line **4,999**
+  - `Campus@2026` at Line **12,000**
+  - `V7q!2mL#9xR@4pZ` at Line **25,000**
+  - Accounts C and D are completely absent from the dataset.
 
-**Admin credentials (LAB_MODE only):**
+---
 
-| Username | Password   |
-|----------|------------|
-| admin    | admin123   |
+### Instructor Presentation Sequence (10 Steps)
 
-These credentials exist only for the demonstration and are not derived from any real account.
+1. **Introduce CampusConnect Portal:** Walk students through the legitimate public event registration portal (`/`).
+2. **Explain Demonstration Accounts:** Open `/lab-demo/` and review the 4 accounts, discussing predictability vs. entropy.
+3. **Run Predictable Password Demo (Account A):** Launch the candidate search and watch candidates stream by.
+4. **Observe Live Timer & Rate:** Note real candidates evaluated per second on the instructor machine.
+5. **Reveal Candidate Position:** Show that Account A was discovered at #4,999 (< 20% of dataset).
+6. **Repeat with Modified Pattern (Account B):** Show that despite having uppercase and symbols, `Campus@2026` was cracked at #12,000 because pattern generators target campus years.
+7. **Demonstrate Random Password (Account C):** Run all 25,001 entries to completion. Emphasize: *"Target not found in the tested candidate set. This proves candidate lists only succeed if the target is in the dictionary."*
+8. **Switch to Protected Authentication (Scenario B):** Transition to Experiment 2 (Online Authentication Controls).
+9. **Demonstrate Rate Limiting & Lockout:** Fire 5 consecutive failed login attempts; observe the transition from HTTP 401 to HTTP 429 lockout (15 minutes).
+10. **Summarize Defense-in-Depth:** Explain that strong passwords must be coupled with bcrypt hashing, lockout policies, and MFA.
 
-**Participant login (demo):**
+---
 
-All seeded participants use the password `demo1234`.
-Their emails follow the pattern `name@example-college.edu` -- this is a non-existent domain.
+### Resetting Between Demonstrations
+
+Click the **"Reset Demo State"** button on the top right of `/lab-demo/`. This:
+- Clears demo failed attempts and unlocks all demo accounts
+- Truncates disposable demo audit logs (`demo_login_attempts`)
+- Clears session-recorded simulation timings
+- **Preserves all real participant registrations and admin logs intact.**
 
 ---
 
@@ -275,3 +302,4 @@ This project is provided for **educational purposes only** under the MIT License
 ---
 
 *CampusConnect is a fictional student organization. Any resemblance to real organizations is coincidental.*
+

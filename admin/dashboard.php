@@ -175,6 +175,15 @@ try {
             <?php endif; ?>
 
             <div class="admin-nav-section">
+                <div class="admin-nav-label">Security Lab</div>
+                <a href="<?= SITE_URL ?>/lab-demo/" class="admin-nav-link" target="_blank">
+                    <span class="icon">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                    </span> Password Demo Lab ↗
+                </a>
+            </div>
+
+            <div class="admin-nav-section">
                 <div class="admin-nav-label">Site</div>
                 <a href="<?= SITE_URL ?>/" class="admin-nav-link" target="_blank">
                     <span class="icon">
