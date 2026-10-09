@@ -1084,121 +1084,59 @@ $sim_results = $_SESSION['demo_sim_results'] ?? [];
         <div class="demo-card">
             <div class="demo-card-header">
                 <div>
-                    <h2 class="demo-card-title">10-Step Instructor Presentation Flow</h2>
+                    <h2 class="demo-card-title">Instructor Presentation Flow</h2>
                     <p class="demo-card-subtitle">
-                        Standard presentation script and speaker notes for a classroom projector session.
+                        Simplified 4-stage presentation script and speaker notes for a classroom projector session.
                     </p>
                 </div>
             </div>
 
             <div id="presentation-stepper">
-                <!-- Step 1 -->
+                <!-- Stage 1 -->
                 <div class="presentation-step-card active" onclick="activateStep(this)">
                     <div class="step-header">
-                        <span class="step-num">Step 1</span>
-                        <span class="step-title">Introduce the CampusConnect Portal</span>
+                        <span class="step-num">Stage 1</span>
+                        <span class="step-title">Weak Predictable Password (Account A)</span>
                     </div>
                     <div class="step-notes">
-                        <strong>Speaker Note:</strong> Open the public portal in a separate tab. Explain: "CampusConnect is a college student club portal. Students register for events, and administrators manage sessions. Notice how legitimate and normal it looks. Today we examine what happens when student accounts use weak or predictable credentials."
+                        <strong>Action:</strong> Go to 'Candidate Search Simulation', select Account A (campus2026), and start the search.<br><br>
+                        <strong>Speaker Note:</strong> "Account A uses a highly predictable, campus-themed password. Watch the live simulation run against our synthetic dataset. Because attackers organize dictionaries by likelihood, it is discovered almost immediately at position #4,999. If you base your password on your college and graduation year, it will fall very quickly."
                     </div>
                 </div>
 
-                <!-- Step 2 -->
+                <!-- Stage 2 -->
                 <div class="presentation-step-card" onclick="activateStep(this)">
                     <div class="step-header">
-                        <span class="step-num">Step 2</span>
-                        <span class="step-title">Explain the Fictional Accounts &amp; Password Patterns</span>
+                        <span class="step-num">Stage 2</span>
+                        <span class="step-title">Modified Pattern Password (Account B)</span>
                     </div>
                     <div class="step-notes">
-                        <strong>Speaker Note:</strong> Switch to the Demo Accounts tab. Explain: "We have four fictional student accounts: Account A uses a predictable campus word; Account B uses a common pattern with an uppercase letter, symbol, and year; Account C uses a 16-character random string; Account D uses a 4-word passphrase. Let's see how an attacker evaluates them."
+                        <strong>Action:</strong> Select Account B (Campus@2026) and start the search.<br><br>
+                        <strong>Speaker Note:</strong> "Account B looks stronger because it adds a capital letter and a special character—satisfying traditional complexity rules. However, attackers know this exact pattern! The simulation finds it at position #12,000. Complexity rules do not protect against predictable human patterns."
                     </div>
                 </div>
 
-                <!-- Step 3 -->
+                <!-- Stage 3 -->
                 <div class="presentation-step-card" onclick="activateStep(this)">
                     <div class="step-header">
-                        <span class="step-num">Step 3</span>
-                        <span class="step-title">Start Predictable Password Demonstration (Account A)</span>
+                        <span class="step-num">Stage 3</span>
+                        <span class="step-title">Random High-Entropy Password (Account C)</span>
                     </div>
                     <div class="step-notes">
-                        <strong>Speaker Note:</strong> Switch to Candidate Search Simulation tab, select Account A, and click 'Start Candidate Search'. Point to the candidate stream on screen.
+                        <strong>Action:</strong> Select Account C (rN7#kP9!wB2$xT5&) and start the search. Wait for it to finish.<br><br>
+                        <strong>Speaker Note:</strong> "Account C uses a 16-character randomly generated string. Notice how it scans the entire 25,001 candidate dataset and fails to find a match. This proves that predictability, not just length, is what exposes you. Random generation makes dictionary prediction practically impossible."
                     </div>
                 </div>
 
-                <!-- Step 4 -->
+                <!-- Stage 4 -->
                 <div class="presentation-step-card" onclick="activateStep(this)">
                     <div class="step-header">
-                        <span class="step-num">Step 4</span>
-                        <span class="step-title">Show Live Timer and Measured Progress</span>
+                        <span class="step-num">Stage 4</span>
+                        <span class="step-title">Server Defences: Lockout &amp; MFA</span>
                     </div>
                     <div class="step-notes">
-                        <strong>Speaker Note:</strong> Highlight the candidate counter and timer. Explain: "Notice the timer measuring real candidates evaluated on this machine. Because candidates are ordered by common campus words, Account A is found very quickly."
-                    </div>
-                </div>
-
-                <!-- Step 5 -->
-                <div class="presentation-step-card" onclick="activateStep(this)">
-                    <div class="step-header">
-                        <span class="step-num">Step 5</span>
-                        <span class="step-title">Reveal Candidate Position After the Experiment</span>
-                    </div>
-                    <div class="step-notes">
-                        <strong>Speaker Note:</strong> The simulation stops at candidate #4,999. Explain: "Account A was cracked after evaluating only 4,999 candidates—less than 20% of the small 25,001 list! Anyone who creates a password around their college name and graduation year is at high risk."
-                    </div>
-                </div>
-
-                <!-- Step 6 -->
-                <div class="presentation-step-card" onclick="activateStep(this)">
-                    <div class="step-header">
-                        <span class="step-num">Step 6</span>
-                        <span class="step-title">Repeat with Modified-Pattern Password (Account B)</span>
-                    </div>
-                    <div class="step-notes">
-                        <strong>Speaker Note:</strong> Select Account B (<code>Campus@2026</code>) and run the search. It stops at position #12,000. Explain: "Account B looks complex to a human—it has a capital letter, an '@' symbol, and a year. But attackers know this exact pattern! It was still discovered in the wordlist because the pattern itself is completely predictable."
-                    </div>
-                </div>
-
-                <!-- Step 7 -->
-                <div class="presentation-step-card" onclick="activateStep(this)">
-                    <div class="step-header">
-                        <span class="step-num">Step 7</span>
-                        <span class="step-title">Demonstrate Random Password &amp; Explain "Not Found" Outcome</span>
-                    </div>
-                    <div class="step-notes">
-                        <strong>Speaker Note:</strong> Select Account C and run. All 25,001 candidates are tested and the search finishes with: <em>'Target not found in the tested candidate set'</em>. Explain: "Crucial lesson: This does NOT mean the password is mathematically unbreakable. It means candidate wordlists only succeed if the target is within the tested dataset. Random generation makes dictionary prediction impossible."
-                    </div>
-                </div>
-
-                <!-- Step 8 -->
-                <div class="presentation-step-card" onclick="activateStep(this)">
-                    <div class="step-header">
-                        <span class="step-num">Step 8</span>
-                        <span class="step-title">Activate Protected Authentication Scenario</span>
-                    </div>
-                    <div class="step-notes">
-                        <strong>Speaker Note:</strong> Switch to the Online Authentication Controls tab and activate Scenario B: Protected. Explain: "Now we test against the live server backend. In Scenario A (Insecure), an attacker can submit unlimited attempts with no delay. Now watch what happens when we enforce defensive controls."
-                    </div>
-                </div>
-
-                <!-- Step 9 -->
-                <div class="presentation-step-card" onclick="activateStep(this)">
-                    <div class="step-header">
-                        <span class="step-num">Step 9</span>
-                        <span class="step-title">Show the Effect of Throttling &amp; Account Lockout</span>
-                    </div>
-                    <div class="step-notes">
-                        <strong>Speaker Note:</strong> Click 'Send 5 Failed Attempts'. Show the audit log and HTTP status 429: "On attempt 5, the server locked the account for 15 minutes. Even if an attacker has a list of millions of passwords, rate limiting reduces their speed from 500,000 guesses per second to only 5 attempts per 15 minutes!"
-                    </div>
-                </div>
-
-                <!-- Step 10 -->
-                <div class="presentation-step-card" onclick="activateStep(this)">
-                    <div class="step-header">
-                        <span class="step-num">Step 10</span>
-                        <span class="step-title">Summarize the Security Lessons</span>
-                    </div>
-                    <div class="step-notes">
-                        <strong>Speaker Note:</strong> Conclude with the summary: "1) Length and randomness beat complexity rules. 2) Defense-in-depth is essential: strong passwords combined with server-side rate limiting, bcrypt hashing, and MFA provide robust security."
+                        <strong>Action:</strong> Go to 'Online Authentication Controls'. Select 'Scenario B: Protected'. Send 5 failed attempts. Note the 429 response and 15-minute lockout.<br><br>
+                        <strong>Speaker Note:</strong> "Strong passwords are just one layer. On the backend, we enforce a 5-attempt limit resulting in a 15-minute lockout. This rate-limiting renders fast dictionary attacks useless. Combined with bcrypt hashing and Multi-Factor Authentication, we achieve robust defense-in-depth."
                     </div>
                 </div>
             </div>
