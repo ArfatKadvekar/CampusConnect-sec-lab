@@ -1,9 +1,12 @@
 <?php
 /**
- * CampusConnect Security Lab — Instructor Demonstration Access Gateway
+ * CampusConnect — Instructor Demonstration Access Gateway
  *
- * Provides access control to the instructor dashboard.
- * Enforces localhost restriction (127.0.0.1) and authorization credentials.
+ * Provides access control to the password-security demonstration dashboard.
+ * Enforces localhost restriction (127.0.0.1) and verifies admin credentials.
+ *
+ * SECURITY NOTE: Only the real administrator account (ADMIN_USERNAME / ADMIN_PASSWORD_HASH
+ * defined in config/config.php) may unlock this page. No shortcut backdoor credentials exist.
  */
 
 require_once __DIR__ . '/../config/config.php';
@@ -13,24 +16,23 @@ require_once __DIR__ . '/../includes/demo_helper.php';
 
 enforce_localhost_only();
 
-// If already admin or authorized, redirect straight to dashboard
+// If already admin or a valid instructor session exists, redirect to dashboard
 if (is_instructor_authorized()) {
     header('Location: ' . SITE_URL . '/lab-demo/index.php');
     exit;
 }
 
 $error = '';
-$info  = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username'] ?? '');
     $password = trim($_POST['password'] ?? '');
 
-    // Allow admin credentials or direct instructor lab login
+    // Only the real admin account unlocks the instructor presentation dashboard.
+    // No hardcoded shortcut credentials are permitted for security demonstration integrity.
     $is_admin = ($username === ADMIN_USERNAME && password_verify($password, ADMIN_PASSWORD_HASH));
-    $is_instructor_quick = ($username === 'instructor' && in_array($password, ['demo1234', 'admin123', 'campus2026'], true));
 
-    if ($is_admin || $is_instructor_quick) {
+    if ($is_admin) {
         session_regenerate_id(true);
         $_SESSION['instructor_authorized'] = true;
         $_SESSION['instructor_user']       = $username;
@@ -38,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header('Location: ' . SITE_URL . '/lab-demo/index.php');
         exit;
     } else {
-        $error = 'Invalid credentials for instructor presentation mode.';
+        $error = 'Invalid admin credentials. Please use the administrator username and password configured in config/config.php.';
     }
 }
 ?>
@@ -132,17 +134,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php endif; ?>
 
     <div class="notice-box">
-        <strong>Session Note:</strong> You may authenticate using the administrative credentials (<code>admin</code>) or use instructor demonstration credentials.
+        <strong>Session Note:</strong> Authenticate using the administrator credentials configured in <code>config/config.php</code> (<code>ADMIN_USERNAME</code> / <code>ADMIN_PASSWORD_HASH</code>). This page is only accessible from <code>127.0.0.1</code>.
     </div>
 
     <form method="POST" action="">
         <div class="form-group" style="margin-bottom: 16px;">
-            <label class="form-label" for="username" style="font-size: 0.85rem; font-weight: 600;">Instructor / Admin Username</label>
+            <label class="form-label" for="username" style="font-size: 0.85rem; font-weight: 600;">Admin Username</label>
             <input type="text"
                    id="username"
                    name="username"
                    class="form-control"
-                   placeholder="e.g. admin or instructor"
+                   placeholder="e.g. admin"
                    value="admin"
                    required
                    autofocus>
